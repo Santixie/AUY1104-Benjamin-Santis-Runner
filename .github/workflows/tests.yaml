@@ -1,0 +1,24 @@
+# Pipeline de validación desacoplado
+# Solo corre tests — nunca construye ni publica imágenes
+# Se activa en push a cualquier rama EXCEPTO main y tags
+
+on:
+  push:
+    branches-ignore:
+      - main
+    tags-ignore:
+      - '**'
+
+jobs:
+  solo-tests:
+    name: Ejecutar pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1 · Descargar código
+        uses: actions/checkout@v4
+
+      - name: 2 · Instalar dependencias
+        run: npm install
+
+      - name: 3 · Ejecutar tests
+        run: npm test
