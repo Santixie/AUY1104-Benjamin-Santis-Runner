@@ -1,3 +1,10 @@
+# Misma convención que client.yaml → image-name: demo-api
+# Sustituir YOUR_DOCKERHUB_USERNAME por tu usuario (igual que secret DOCKER_USERNAME).
+# La receta deploy-api publica: <usuario>/demo-api:<tag> y :latest
+#
+# Borde HTTP: no duplicar HAProxy aquí. Aplicar primero en el cluster
+# AUY1104-SharedWorkflows k8s-manifests/haproxy-academic/shared/
+# (ea2-haproxy-academic). Ruta pública :30088 …/backend/* → este Service demo-api:3000.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,7 +12,7 @@ metadata:
   labels:
     app: demo-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: demo-api
@@ -15,15 +22,12 @@ spec:
         app: demo-api
     spec:
       containers:
-        - name: demo-api
-          image: bnjmn265/demo-api:latest
+        - name: api
+          image: asanchezoduoc/demo-api:latest
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 3000
-          env:
-            - name: PORT
-              value: "3000"
           readinessProbe:
             httpGet:
               path: /health

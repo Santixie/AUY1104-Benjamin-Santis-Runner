@@ -1,12 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-api-svc
+  name: demo-api
+  labels:
+    app: demo-api
 spec:
-  type: NodePort
+  # Cambiamos a NodePort para que el puerto 30090 sea válido
+  type: NodePort 
   selector:
     app: demo-api
   ports:
-    - port: 3000
-      targetPort: 3000
-      nodePort: 30080
+    - name: http
+      port: 3000       # Puerto interno del Service
+      targetPort: http # Debe coincidir con el name o número en el Deployment
+      nodePort: 30090  # El puerto fijo que mencionas para el backend
