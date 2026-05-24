@@ -15,7 +15,7 @@ on:
 jobs:
   usar-receta-compartida:
     # Aquí no repetimos los pasos de Docker: delegamos al otro repositorio
-    uses: Santixie/AUY1104-Benjamin-Santis-Principal/.github/workflows/deploy-api.yaml@main
+    uses: Santixie/AUY1104-Benjamin-Santis-Main/.github/workflows/deploy-api.yaml@main
 
     # Valores que le "pasamos" a la receta (nombre de la imagen y qué versión es)
     with:
