@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: bnjmn265/demo-api:v1.1.0
+          image: bnjmn265/demo-api:v1.0.0
           imagePullPolicy: Always
           ports:
             - name: http
