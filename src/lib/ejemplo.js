@@ -31,7 +31,7 @@ function construirEchoRespuesta(cuerpo) {
 function healthPayload() {
   return {
     ok: true,
-    servicio: 'mi-api',
+    servicio: 'auy1104-api-ejemplo',
     mensaje: 'El servicio está en ejecución',
   };
 }
