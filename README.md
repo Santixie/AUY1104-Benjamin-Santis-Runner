@@ -91,14 +91,30 @@ curl -s http://localhost:3000/api/no-existe
 ## Estructura del proyecto
 
 ```
-Docker de Ejemplo/
-├── Dockerfile
+AUY1104-Benjamin-Santis-Runner/
+├── .github/
+│   └── workflows/
+│       ├── client.yaml       # Pipeline principal: build, push y deploy al activar un tag
+│       └── tests.yaml        # Pipeline de validación: solo tests en ramas de desarrollo
+├── k8s/
+│   ├── deployment.yaml       # Manifiesto de despliegue de la API en K3s
+│   ├── service.yaml          # Servicio NodePort expuesto en el puerto 30090
+│   ├── nginx-deployment.yaml # Deployment nginx (auxiliar)
+│   └── nginx-service.yaml    # Servicio nginx NodePort 30080 (auxiliar)
+├── src/
+│   ├── index.js              # Servidor Express con los endpoints de la API
+│   └── lib/
+│       └── ejemplo.js        # Lógica de negocio separada de las rutas
+├── tests/
+│   ├── app.test.js           # Tests de integración HTTP con supertest
+│   └── ejemplo.test.js       # Tests unitarios de la lógica de negocio
+├── coverage/                 # Reporte de cobertura generado por Jest (ignorado por git)
+├── Dockerfile                # Imagen node:20-alpine, expone puerto 3000
 ├── .dockerignore
+├── .gitignore
+├── jest.config.js            # Configuración de Jest con cobertura lcov
 ├── package.json
-├── package-lock.json
-├── README.md
-└── src/
-    └── index.js
+└── README.md
 ```
 
 ## Variables de entorno
