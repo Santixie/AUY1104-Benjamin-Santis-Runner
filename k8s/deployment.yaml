@@ -30,14 +30,15 @@ spec:
               containerPort: 3000
           readinessProbe:
             httpGet:
-              path: /health
-              port: http
+              path: /ruta-que-no-existe
+              port: 3000
             initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
           livenessProbe:
             httpGet:
               path: /ruta-que-no-existe
               port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 2
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 1
