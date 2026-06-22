@@ -36,7 +36,8 @@ spec:
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /health
-              port: http
+              path: /ruta-que-no-existe
+              port: 3000
             initialDelaySeconds: 15
-            periodSeconds: 20
+            periodSeconds: 10
+            failureThreshold: 2
