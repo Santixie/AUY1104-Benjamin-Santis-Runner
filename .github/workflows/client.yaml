@@ -7,9 +7,9 @@
 name: Publicar API a Docker Hub y desplegar en K3S
 
 on:
-  push:
-    tags:
-      - 'v*.*.*' # Solo se activa con tags que sigan el formato de versión semántica (ej. v1.2.3)
+  #push:
+    #tags:
+      - #'v*.*.*' # Solo se activa con tags que sigan el formato de versión semántica (ej. v1.2.3)
   workflow_dispatch:
 
 jobs:
