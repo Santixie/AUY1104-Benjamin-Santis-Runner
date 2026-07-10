@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: api
-          image: bnjmn265/demo-api:latest
-          imagePullPolicy: Always
+          image: __IMAGE__   # sustituido dinámicamente por el pipeline con el tag exacto (nunca :latest)
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 3000
