@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-api
+  labels:
+    app: demo-api
+spec:
+  # Service de producción — su selector.version es el que el pipeline
+  # conmuta al final de un deploy exitoso (Blue-Green switch)
+  type: NodePort
+  selector:
+    app: demo-api
+    version: blue
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      nodePort: 30090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-api-blue-probe
+  labels:
+    app: demo-api
+spec:
+  # Fijo, siempre apunta al color blue.
+  # Se usa exclusivamente para el health check del pipeline, nunca recibe tráfico de producción.
+  type: NodePort
+  selector:
+    app: demo-api
+    version: blue
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      nodePort: 30091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-api-green-probe
+  labels:
+    app: demo-api
+spec:
+  # Fijo, siempre apunta al color green.
+  # Se usa exclusivamente para el health check del pipeline, nunca recibe tráfico de producción.
+  type: NodePort
+  selector:
+    app: demo-api
+    version: green
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      nodePort: 30092

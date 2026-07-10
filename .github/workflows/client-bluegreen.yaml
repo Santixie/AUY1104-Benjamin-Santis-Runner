@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────────────
+# Este archivo vive en el repo del alumno (Runner).
+# Al publicar un tag tipo v1.2.3, dispara build → deploy Blue-Green
+# delegando la lógica al repositorio central (Main).
+# ─────────────────────────────────────────────────────────────
+name: Publicar API y desplegar Blue-Green en K3S
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: Santixie/AUY1104-Benjamin-Santis-Main/.github/workflows/build-api.yaml@main
+    with:
+      image-name: demo-api
+      image-tag: ${{ github.ref_name }}
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy:
+    needs: build
+    uses: Santixie/AUY1104-Benjamin-Santis-Main/.github/workflows/deploy-bluegreen.yaml@main
+    with:
+      image-name: demo-api
+      image-tag: ${{ github.ref_name }}
+      k3s-server-public-ip: ${{ vars.K3S_SERVER_PUBLIC_IP }}
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      EA2_SSH_PRIVATE_KEY: ${{ secrets.EA2_SSH_PRIVATE_KEY }}
