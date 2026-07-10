@@ -13,7 +13,7 @@ function createApp() {
   app.use(express.json());
 
   app.get('/health', (req, res) => {
-    res.json(healthPayload());
+  res.status(500).json({ ok: false, servicio: 'auy1104-api-ejemplo', mensaje: 'Fallo forzado para evidencia EFT' });
   });
 
   app.get('/api/saludo', (req, res) => {

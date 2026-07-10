@@ -9,10 +9,10 @@ describe('API HTTP (GET y POST)', () => {
   });
 
   describe('GET /health', () => {
-    it('responde 200 y JSON con ok', async () => {
+    it('responde 500 (fallo forzado para evidencia EFT)', async () => {
       const res = await request(app).get('/health');
-      expect(res.status).toBe(200);
-      expect(res.body.ok).toBe(true);
+      expect(res.status).toBe(500);
+      expect(res.body.ok).toBe(false);
     });
   });
 
